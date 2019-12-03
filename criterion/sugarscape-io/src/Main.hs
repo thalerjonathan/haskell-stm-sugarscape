@@ -29,7 +29,7 @@ envSize = (50, 50)
 main :: IO ()
 main = do
     let t       = 100
-        dt      = 1.0
+        dt      = 1
         g       = mkStdGen rngSeed
         
     cores <- getNumCapabilities

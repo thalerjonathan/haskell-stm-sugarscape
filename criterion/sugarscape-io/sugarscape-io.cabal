@@ -91,4 +91,4 @@ executable sugarscape-io
   -- Base language which the package is written in.
   default-language:    Haskell2010
   
-  ghc-options:         -O3 -Wall -Werror -fwarn-tabs -rtsopts -threaded -with-rtsopts=-N -fno-warn-unused-top-binds
+  ghc-options:         -O2 -Wall -Werror -rtsopts -threaded -with-rtsopts=-N -fno-warn-unused-top-binds
