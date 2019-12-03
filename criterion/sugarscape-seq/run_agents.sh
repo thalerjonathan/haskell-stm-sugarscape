@@ -1,0 +1,1 @@
+stack exec -- sugarscape-seq sugarscape-seq-agents -o sugarscape-seq_agents.html

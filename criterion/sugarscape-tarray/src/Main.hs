@@ -4,6 +4,7 @@ module Main where
 import System.Random
 
 import Control.Concurrent.STM
+import Control.Concurrent
 import Control.Concurrent.STM.Stats
 import Control.Monad.Random
 import Data.Time.Clock
@@ -28,19 +29,21 @@ envSize = (50, 50)
 
 main :: IO ()
 main = do
-    let t       = 100
+    let t       = 500
         dt      = 1.0
         g       = mkStdGen rngSeed
         
+    cores <- getNumCapabilities
+    
     Crit.defaultMain [
         Crit.bgroup "sugarscape-tarray-cores"
-        [ Crit.bench "500"  $ Crit.nfIO (initSim g t dt 500 False) ]
+        [ Crit.bench ("500:" ++ show cores)  $ Crit.nfIO (initSim g t dt 500 False) ]
       , Crit.bgroup "sugarscape-tarray-agents"
-        [ Crit.bench "500"  $ Crit.nfIO (initSim g t dt  500 True)
-        , Crit.bench "1000" $ Crit.nfIO (initSim g t dt 1000 True)
-        , Crit.bench "1500" $ Crit.nfIO (initSim g t dt 1500 True)
-        , Crit.bench "2000" $ Crit.nfIO (initSim g t dt 2000 True)
-        , Crit.bench "2500" $ Crit.nfIO (initSim g t dt 2500 True) ]
+        [ Crit.bench ("500:" ++ show cores)  $ Crit.nfIO (initSim g t dt  500 True)
+        , Crit.bench ("1000:" ++ show cores) $ Crit.nfIO (initSim g t dt 1000 True)
+        , Crit.bench ("1500:" ++ show cores) $ Crit.nfIO (initSim g t dt 1500 True)
+        , Crit.bench ("2000:" ++ show cores) $ Crit.nfIO (initSim g t dt 2000 True)
+        , Crit.bench ("2500:" ++ show cores) $ Crit.nfIO (initSim g t dt 2500 True) ]
       ]
   where
     initSim g0 t dt ac rebirthFlag = do
