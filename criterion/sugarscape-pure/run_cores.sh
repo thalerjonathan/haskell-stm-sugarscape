@@ -1,0 +1,1 @@
+stack exec -- sugarscape-pure sugarscape-pure-cores -o sugarscape-pure_500.html

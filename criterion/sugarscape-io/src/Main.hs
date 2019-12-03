@@ -35,11 +35,11 @@ main = do
         Crit.bgroup "sugarscape-io-cores"
         [ Crit.bench "500"   $ Crit.nfIO (initSim g t dt 500 False) ]
       , Crit.bgroup "sugarscape-io-agents"
-        [ Crit.bench "500"  $ Crit.nfIO (initSim g t dt  500 False)
-        , Crit.bench "1000" $ Crit.nfIO (initSim g t dt 1000 False)
-        , Crit.bench "1500" $ Crit.nfIO (initSim g t dt 1500 False)
-        , Crit.bench "2000" $ Crit.nfIO (initSim g t dt 2000 False)
-        , Crit.bench "2500" $ Crit.nfIO (initSim g t dt 2500 False) ]
+        [ Crit.bench "500"  $ Crit.nfIO (initSim g t dt  500 True)
+        , Crit.bench "1000" $ Crit.nfIO (initSim g t dt 1000 True)
+        , Crit.bench "1500" $ Crit.nfIO (initSim g t dt 1500 True)
+        , Crit.bench "2000" $ Crit.nfIO (initSim g t dt 2000 True)
+        , Crit.bench "2500" $ Crit.nfIO (initSim g t dt 2500 True) ]
       ]
   where
     initSim g0 t dt ac rebirthFlag = do
@@ -128,7 +128,7 @@ simulateUntil :: RandomGen g
 simulateUntil dt tMax simCtx sugCtx acc = do
   (simCtx', simOut) <- simulationStep dt sugCtx simCtx
 
-  let acc' = (simOut : acc)
+  let acc' = simOut : acc
 
   if simCtxTime simCtx' >= tMax
     then return acc'

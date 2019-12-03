@@ -1,0 +1,1 @@
+stack exec -- sugarscape-pure sugarscape-pure-agents -o sugarscape-pure_agents.html
