@@ -28,21 +28,21 @@ envSize = (50, 50)
 
 main :: IO ()
 main = do
-    let t       = 100
-        dt      = 1
-        g       = mkStdGen rngSeed
+    let t  = 100
+        dt = 1
+        g  = mkStdGen rngSeed
         
     cores <- getNumCapabilities
 
     Crit.defaultMain [
-        Crit.bgroup "sugarscape-io-cores"
-        [ Crit.bench ("500:"  ++ show cores) $ Crit.nfIO (initSim g t dt 500 False) ]
-      , Crit.bgroup "sugarscape-io-agents"
-        [ Crit.bench ("500:"  ++ show cores) $ Crit.nfIO (initSim g t dt  500 True)
-        , Crit.bench ("1000:" ++ show cores) $ Crit.nfIO (initSim g t dt 1000 True)
-        , Crit.bench ("1500:" ++ show cores) $ Crit.nfIO (initSim g t dt 1500 True)
-        , Crit.bench ("2000:" ++ show cores) $ Crit.nfIO (initSim g t dt 2000 True)
-        , Crit.bench ("2500:" ++ show cores) $ Crit.nfIO (initSim g t dt 2500 True) ]
+        Crit.bgroup ("sugarscape-io-cores:" ++ show cores)
+        [ Crit.bench "500"  $ Crit.nfIO (initSim g t dt 500 False) ]
+      , Crit.bgroup ("sugarscape-io-agents:" ++ show cores)
+        [ Crit.bench "500"  $ Crit.nfIO (initSim g t dt  500 True)
+        , Crit.bench "1000" $ Crit.nfIO (initSim g t dt 1000 True)
+        , Crit.bench "1500" $ Crit.nfIO (initSim g t dt 1500 True)
+        , Crit.bench "2000" $ Crit.nfIO (initSim g t dt 2000 True)
+        , Crit.bench "2500" $ Crit.nfIO (initSim g t dt 2500 True) ]
       ]
   where
     initSim g0 t dt ac rebirthFlag = do
