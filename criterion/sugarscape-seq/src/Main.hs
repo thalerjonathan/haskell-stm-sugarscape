@@ -29,7 +29,7 @@ main = do
     Crit.defaultMain [
         Crit.bgroup "sugarscape-seq-singlecore"
         [ Crit.bench "500"  $ Crit.nfIO (initSim steps dt 500 False) ]
-      , Crit.bgroup "sugarscape-seq-agents"
+      , Crit.bgroup "sugarscape-seq-rebirthing"
         [ Crit.bench "500"  $ Crit.nfIO (initSim steps dt  500 True)
         , Crit.bench "1000" $ Crit.nfIO (initSim steps dt 1000 True)
         , Crit.bench "1500" $ Crit.nfIO (initSim steps dt 1500 True)

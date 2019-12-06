@@ -35,9 +35,9 @@ main = do
     cores <- getNumCapabilities
 
     Crit.defaultMain [
-        Crit.bgroup ("sugarscape-tvar-cores:" ++ show cores)
+        Crit.bgroup ("sugarscape-tvar-normal:" ++ show cores)
         [ Crit.bench "500" $ Crit.nfIO (initSim g t dt 500 False) ]
-      , Crit.bgroup ("sugarscape-tvar-agents:" ++ show cores)
+      , Crit.bgroup ("sugarscape-tvar-rebirthing:" ++ show cores)
         [ Crit.bench "500"  $ Crit.nfIO (initSim g t dt  500 True)
         , Crit.bench "1000" $ Crit.nfIO (initSim g t dt 1000 True)
         , Crit.bench "1500" $ Crit.nfIO (initSim g t dt 1500 True)

@@ -36,9 +36,9 @@ main = do
     cores <- getNumCapabilities
     
     Crit.defaultMain [
-        Crit.bgroup ("sugarscape-tarray-cores:" ++ show cores)
+        Crit.bgroup ("sugarscape-tarray-normal:" ++ show cores)
         [ Crit.bench "500"  $ Crit.nfIO (initSim g t dt 500 False) ]
-      , Crit.bgroup ("sugarscape-tarray-agents:" ++ show cores)
+      , Crit.bgroup ("sugarscape-tarray-rebirthing:" ++ show cores)
         [ Crit.bench "500"  $ Crit.nfIO (initSim g t dt  500 True)
         , Crit.bench "1000" $ Crit.nfIO (initSim g t dt 1000 True)
         , Crit.bench "1500" $ Crit.nfIO (initSim g t dt 1500 True)
