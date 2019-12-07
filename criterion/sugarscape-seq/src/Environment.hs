@@ -1,7 +1,6 @@
 {-# LANGUAGE Arrows #-}
 module Environment 
-  (
-    cellUnoccupied
+  ( cellUnoccupied
   , cellOccupied
   
   , regrow

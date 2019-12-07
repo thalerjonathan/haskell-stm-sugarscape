@@ -1,6 +1,5 @@
 module Common 
-  (
-    sugObservableFromState
+  ( sugObservableFromState
   
   , BestCellMeasureFunc
   , selectBestCells

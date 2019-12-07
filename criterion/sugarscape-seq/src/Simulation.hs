@@ -1,3 +1,5 @@
+-- NOTE: memory leak if not Strict
+{-# LANGUAGE Strict #-}
 module Simulation
   ( SimulationState (..)
   , SimStepOut

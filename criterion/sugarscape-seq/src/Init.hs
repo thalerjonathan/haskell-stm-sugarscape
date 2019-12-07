@@ -1,6 +1,5 @@
 module Init 
-  (
-    createSugarScape
+  ( createSugarScape
   ) where
 
 import Control.Monad.Random

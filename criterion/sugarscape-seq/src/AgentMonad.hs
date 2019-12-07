@@ -1,9 +1,7 @@
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE FlexibleContexts #-}
-
 module AgentMonad
-  (
-    AgentId
+  ( AgentId
 
   , ABSState (..)
   
