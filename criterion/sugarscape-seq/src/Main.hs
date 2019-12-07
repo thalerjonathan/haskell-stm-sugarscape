@@ -23,7 +23,7 @@ envSize = (50, 50)
 
 main :: IO ()
 main = do
-    let steps   = 100
+    let steps   = 1000
         dt      = 1
         
     Crit.defaultMain [

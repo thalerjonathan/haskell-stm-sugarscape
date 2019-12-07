@@ -28,7 +28,7 @@ envSize = (50, 50)
 
 main :: IO ()
 main = do
-    let t  = 100
+    let t  = 1000
         dt = 1
         g  = mkStdGen rngSeed
     
