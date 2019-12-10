@@ -48,7 +48,7 @@ main = do
   where
     initSim g0 t dt ac rebirthFlag = do
       let envConc      = False  -- runs the environment agent concurrently DONT DO IT!
-      let stmStatsFlag = False  -- collects STM statistics. WARNING: reduces performance!
+      let stmStatsFlag = True  -- collects STM statistics. WARNING: reduces performance!
 
       -- initial agents and environment
       let ret                = runRandT (createSugarScape ac envSize rebirthFlag) g0
