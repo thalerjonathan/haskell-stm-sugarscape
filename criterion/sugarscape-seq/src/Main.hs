@@ -1,12 +1,13 @@
 module Main where
 
---import System.IO
+import System.IO
 import System.Random
+import Text.Printf
 
 import Control.Monad.Random
 import Data.Time.Clock
 import FRP.BearRiver
-import qualified Criterion.Main as Crit
+--import qualified Criterion.Main as Crit
 
 import AgentMonad
 --import GlossRunner
@@ -25,17 +26,23 @@ main :: IO ()
 main = do
     let steps   = 1000
         dt      = 1
-        
-    Crit.defaultMain [
-        Crit.bgroup "sugarscape-seq-singlecore"
-        [ Crit.bench "500"  $ Crit.nfIO (initSim steps dt 500 False) ]
-      , Crit.bgroup "sugarscape-seq-rebirthing"
-        [ Crit.bench "500"  $ Crit.nfIO (initSim steps dt  500 True)
-        , Crit.bench "1000" $ Crit.nfIO (initSim steps dt 1000 True)
-        , Crit.bench "1500" $ Crit.nfIO (initSim steps dt 1500 True)
-        , Crit.bench "2000" $ Crit.nfIO (initSim steps dt 2000 True)
-        , Crit.bench "2500" $ Crit.nfIO (initSim steps dt 2500 True) ]
-      ]
+
+    ret <- initSim steps dt 500 False
+
+    let popSizeDyns = map (\(t, _, aos) -> (t, length aos)) (reverse ret)
+
+    writeCSVFile "popSize.csv" popSizeDyns
+
+    -- Crit.defaultMain [
+    --     Crit.bgroup "sugarscape-seq-singlecore"
+    --     [ Crit.bench "500"  $ Crit.nfIO (initSim steps dt 500 False) ]
+    --   , Crit.bgroup "sugarscape-seq-rebirthing"
+    --     [ Crit.bench "500"  $ Crit.nfIO (initSim steps dt  500 True)
+    --     , Crit.bench "1000" $ Crit.nfIO (initSim steps dt 1000 True)
+    --     , Crit.bench "1500" $ Crit.nfIO (initSim steps dt 1500 True)
+    --     , Crit.bench "2000" $ Crit.nfIO (initSim steps dt 2000 True)
+    --     , Crit.bench "2500" $ Crit.nfIO (initSim steps dt 2500 True) ]
+    --   ]
   where
     initSim steps dt ac rebirthFlag = do
           -- initial RNG
@@ -111,3 +118,15 @@ simulate dt ss perfFile = do
   if ret 
     then return ()
     else simulate dt ss' perfFile
+
+writeCSVFile :: String -> [(Time, Int)] -> IO ()
+writeCSVFile fileName xs = do
+    hdl <- openFile fileName WriteMode
+
+    hPutStrLn hdl "T,PopSize"
+    mapM_ (hPutStrLn hdl . popSizeToString) xs
+
+    hClose hdl
+  where
+    popSizeToString :: (Time, Int) -> String
+    popSizeToString (t, p) = printf "%f, %d" t p
